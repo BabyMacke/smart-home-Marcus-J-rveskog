@@ -8,9 +8,11 @@ app.listen(3000, () => {
 /* CODE YOUR API HERE */
 
 //request för lampor
-// url request exempel: /lights/2/on
+// exempel på request i postman/insomina: /lights/2/on
 app.get('/lights/:id/:status', (req, res) => {
+  //en ternery operator som kollar på vad som står i params
   const isActive = req.params.status === 'on' ? true : false;
+
   // tar siffran som skrivs in i url och lägger till LIG så det korrekta id:t kan hittas
   const urlId = req.params.id;
   const id = 'LIG' + urlId;
@@ -87,22 +89,24 @@ app.get('/camera/:status', (req, res) => {
   }
 });
 
-/* app.get('/door/:status', (req, res) => {
-  const isActive = req.params.status === 'locked' ? true : false;
+// request för Door
+// url request exempel: http://localhost:3000/door/unlock
+app.get('/door/:status', (req, res) => {
+  const isActive = req.params.status === 'unlock' ? true : false;
 
   db.get('devices')
     .find({ id: 'LOC1' })
-    .assign({ on: isActive }) //
+    .assign({ locked: isActive }) //
     .value();
 
   update();
 
   if (isActive) {
-    res.send(`door is unlocked? `);
+    res.send(`door is unlocked `);
   } else {
-    res.send(`door is locked? `);
+    res.send(`door is locked `);
   }
-}); */
+});
 
 // request för vacuum
 // url request exempel: http://localhost:3000/vacuum/on
